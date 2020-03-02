@@ -8,8 +8,9 @@ from video_extensions import VideoExtensions
 
 
 class ZipExtractor:
-    def __init__(self, destination_path):
+    def __init__(self, destination_path,extra_extensions):
         self.destination_path = destination_path
+        self.extensions = extra_extensions
 
     def extract_zip_to_destination(self,file):
         with ZipFile(file, 'r') as zipObj:
@@ -18,7 +19,11 @@ class ZipExtractor:
                 clean_name = re.sub('[^0-9a-zA-Z]+', '', name)
                 print(clean_name)
                 name_part, extension = os.path.splitext(name)
-                if (extension in ImageExtensions.get() or extension in VideoExtensions.get()) and not clean_name.startswith("TakeoutGooglePhotosHangout"):
+                if (
+                        extension in ImageExtensions.get() or
+                        extension in VideoExtensions.get() or
+                        extension in self.extensions
+                ) and not clean_name.startswith("TakeoutGooglePhotosHangout"):
 
                     parts = name.split("/")
 
