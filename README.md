@@ -1,4 +1,5 @@
 # Google drive extractor
+![Python application](https://github.com/fokion/google_drive_extractor/workflows/Python%20application/badge.svg)
 
 Extract and migrate photos and videos when you takeout your data from Google.
 
