@@ -5,6 +5,8 @@ import re
 import sys
 from zipfile import ZipFile
 
+from zip_extractor import ZipExtractor
+
 
 def main(argv):
     path = ''
@@ -36,37 +38,11 @@ def main(argv):
         if filename.endswith(".zip") and filename.startswith("takeout-"):
             files.append(filename)
 
+    extractor = ZipExtractor(destination_path)
     for f in files:
-        print(f)
-        with ZipFile(os.path.join(path, f), 'r') as zipObj:
-            names = zipObj.namelist()
-            for name in names:
-                clean_name = re.sub('[^0-9a-zA-Z]+', '', name)
-                print(clean_name)
-                if (name.endswith(".jpg") or name.endswith(".mp4") or name.endswith(
-                        ".jpeg")) and not clean_name.startswith("TakeoutGooglePhotosHangout"):
+        extractor.extract_zip_to_destination(os.path.join(path, f))
 
-                    parts = name.split("/")
 
-                    name_without_path = parts[len(parts) - 1]
-
-                    if not os.path.isfile(os.path.join(destination_path, name_without_path)):
-                        try:
-                            zipObj.extract(name, os.path.join(destination_path))
-                            extracted_location = os.path.join(destination_path, name)
-                            print(extracted_location)
-                            if os.path.isfile(extracted_location):
-                                print("Exists... ")
-                                shutil.move(extracted_location, os.path.join(destination_path, name_without_path))
-                                if not os.path.isfile(os.path.join(destination_path, name_without_path)):
-                                    print("Moved file is not there...")
-                                    exit(1)
-                        except:
-                            print("Could not extract " + name)
-                    else:
-                        print("Skip " + name_without_path)
-
-        print("------------------")
 
 
 if __name__ == '__main__':
