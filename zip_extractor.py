@@ -8,11 +8,11 @@ from video_extensions import VideoExtensions
 
 
 class ZipExtractor:
-    def __init__(self, destination_path,extra_extensions):
+    def __init__(self, destination_path, extra_extensions):
         self.destination_path = destination_path
         self.extensions = extra_extensions
 
-    def extract_zip_to_destination(self,file):
+    def extract_zip_to_destination(self, file):
         with ZipFile(file, 'r') as zipObj:
             names = zipObj.namelist()
             for name in names:
