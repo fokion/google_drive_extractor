@@ -25,7 +25,7 @@ def main(argv):
         elif opt in ("-o", "--ofile"):
             destination_path = arg
 
-    if not(path!="" and destination_path!="" and os.path.isdir(path) and os.path.isdir(destination_path)):
+    if not (path != "" and destination_path != "" and os.path.isdir(path) and os.path.isdir(destination_path)):
         print('Not specified paths or not folders')
         print('Try running extractor.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
@@ -41,8 +41,6 @@ def main(argv):
     extractor = ZipExtractor(destination_path)
     for f in files:
         extractor.extract_zip_to_destination(os.path.join(path, f))
-
-
 
 
 if __name__ == '__main__':

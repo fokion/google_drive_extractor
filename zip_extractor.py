@@ -3,6 +3,9 @@ import re
 import shutil
 from zipfile import ZipFile
 
+from image_extensions import ImageExtensions
+from video_extensions import VideoExtensions
+
 
 class ZipExtractor:
     def __init__(self, destination_path):
@@ -14,8 +17,8 @@ class ZipExtractor:
             for name in names:
                 clean_name = re.sub('[^0-9a-zA-Z]+', '', name)
                 print(clean_name)
-                if (name.endswith(".jpg") or name.endswith(".mp4") or name.endswith(
-                        ".jpeg")) and not clean_name.startswith("TakeoutGooglePhotosHangout"):
+                name_part, extension = os.path.splitext(name)
+                if (extension in ImageExtensions.get() or extension in VideoExtensions.get()) and not clean_name.startswith("TakeoutGooglePhotosHangout"):
 
                     parts = name.split("/")
 
