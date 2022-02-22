@@ -8,7 +8,7 @@ class ExtensionsParserTest(unittest.TestCase):
     def test_parse(self):
         extensions = set()
         extensions.update([".json", ".ai"])
-        parsed_extensions = ExtensionsParser.parse(os.path.join(os.getcwd(), "extensions.conf"))
+        parsed_extensions = ExtensionsParser.parse(os.path.join(os.getcwd(), "./tests/extensions.conf"))
         print(parsed_extensions)
         self.assertSetEqual(extensions,parsed_extensions)
 
